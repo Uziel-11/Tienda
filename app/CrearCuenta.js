@@ -14,8 +14,8 @@ class CrearCuenta extends React.Component{
             contrasena: ''
         }
 
-        this.estado = false
-        this.usuariobien = false
+        this.estado = true
+        this.usuariobien = true
     }
 
     cambiarCampo(e){
@@ -31,66 +31,78 @@ class CrearCuenta extends React.Component{
     render() {
         return(
             <>
-                <h1> Crear Cuenta </h1>
-                <form onSubmit={this.crearCuenta.bind(this)}>
-                    <div>
-                        <label htmlFor='nombre'> Nombre </label>
-                        <input
-                            type='text'
-                            id='nombre'
-                            name='nombre'
-                            placeholder='Uziel'
-                            value={this.state.nombre}
-                            onChange={this.cambiarCampo.bind(this)}
-                        />
-                        <label ref={self => this.nombre = self}> </label>
+                <br/>
+                <div className={"col-md-4 container-fluid border border-secondary"}>
+                    <div className={"text-center"}>
+                        <h1> Crear Cuenta </h1>
+                        <img src="/recursos/images/LoginIcon.png" width="100" height="100"/>
                     </div>
-                    <br/>
-                    <div>
-                        <label htmlFor='apellidoP'> Apellido Paterno </label>
-                        <input
-                            type='text'
-                            id='apellidoP'
-                            name='apellidoP'
-                            placeholder='Perez'
-                            value={this.state.apellidoP}
-                            onChange={this.cambiarCampo.bind(this)}
-                        />
-                        <label ref={self => this.apellidoP = self}> </label>
-                    </div>
-                    <br/>
-                    <div>
-                        <label htmlFor='usuario'> Nombre de Usuario </label>
-                        <input
-                            type='text'
-                            id='usuario'
-                            name='usuario'
-                            placeholder='UzielP11'
-                            value={this.state.usuario}
-                            onChange={this.cambiarCampo.bind(this)}
-                            onBlur={this.validarUsuario.bind(this)}
-                        />
-                        <label ref={self => this.usuario = self}> </label>
-                    </div>
-                    <br/>
-                    <div>
-                        <label htmlFor='contrasena'> Contraseña </label>
-                        <input
-                            type='password'
-                            id='contrasena'
-                            name='contrasena'
-                            placeholder='1234'
-                            value={this.state.contrasena}
-                            onChange={this.cambiarCampo.bind(this)}
-                        />
-                        <label ref={self => this.contrasena = self}> </label>
-                    </div>
-                    <br/>
-                    <button onClick={this.crearCuenta.bind(this)}>
-                        Crear Cuenta
-                    </button>
-                    <div ref={self => this.messageError = self}> </div>
-                </form>
+
+                    <form onSubmit={this.crearCuenta.bind(this)}>
+                        <div>
+                            <label htmlFor='nombre'> Nombre </label>
+                            <input
+                                type='text'
+                                id='nombre'
+                                name='nombre'
+                                placeholder='Ejemplo'
+                                value={this.state.nombre}
+                                onChange={this.cambiarCampo.bind(this)}
+                            />
+                            <label ref={self => this.nombre = self}> </label>
+                        </div>
+                        <br/>
+                        <div>
+                            <label htmlFor='apellidoP'> Apellido Paterno </label>
+                            <input
+                                type='text'
+                                id='apellidoP'
+                                name='apellidoP'
+                                placeholder='Ejemplo Apellido'
+                                value={this.state.apellidoP}
+                                onChange={this.cambiarCampo.bind(this)}
+                            />
+                            <label ref={self => this.apellidoP = self}> </label>
+                        </div>
+                        <br/>
+                        <div className={"input-group"}>
+                            <label htmlFor='usuario'> Nombre de Usuario </label>
+                            <div className="input-group-text">@</div>
+                            <input
+                                className={"form-control"}
+                                type='text'
+                                id='usuario'
+                                name='usuario'
+                                placeholder='Ejemplo@gmail.com'
+                                value={this.state.usuario}
+                                onChange={this.cambiarCampo.bind(this)}
+                                onBlur={this.validarUsuario.bind(this)}
+                            />
+                            <label ref={self => this.usuario = self}> </label>
+                        </div>
+                        <br/>
+                        <div>
+                            <label htmlFor='contrasena'> Contraseña </label>
+                            <input
+                                type='password'
+                                id='contrasena'
+                                name='contrasena'
+                                placeholder='1234'
+                                value={this.state.contrasena}
+                                onChange={this.cambiarCampo.bind(this)}
+                            />
+                            <label ref={self => this.contrasena = self}> </label>
+                        </div>
+                        <br/>
+                        <div className={"text-center"}>
+                        <button className={"btn btn-outline-primary"} onClick={this.crearCuenta.bind(this)}>
+                            Crear Cuenta
+                        </button>
+                        </div>
+                        <div ref={self => this.messageError = self}> </div>
+                        <br/>
+                    </form>
+                </div>
             </>
         )
     }
@@ -100,12 +112,13 @@ class CrearCuenta extends React.Component{
         this.validarCampos()
         if (this.estado && this.usuariobien){
             let usuar = {
+                //id : this.state.id,
                 nombre: this.state.nombre,
                 apellidoP: this.state.apellidoP,
                 usuario: this.state.usuario,
                 contrasena: this.state.contrasena
             }
-            bd.postInvocacion(`/users/signup`, usuar, dato =>{
+            bd.postInvocacion(`/users/crearCuenta`, usuar, dato =>{
                 alert(dato.message)
                 this.usuariobien = false
             }, error =>{
@@ -119,7 +132,7 @@ class CrearCuenta extends React.Component{
 
     validarCampos(){
         let estado = true
-        if (this.state.nombre.length === 0){
+        if (this.state.nombre.length  === 0){
             this.nombre.innerHTML = '* Campo Obligatorio'
             estado = false
         }else {

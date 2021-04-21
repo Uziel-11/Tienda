@@ -1,4 +1,5 @@
 var path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
     mode: 'development',
@@ -23,7 +24,28 @@ module.exports = {
                         ]
                     }
                 }
+            },
+            {
+                test: /\.(png|gif|jpg|svg)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'assets/[hash].[ext]'
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader'
+                ]
             }
         ]
-    }
+    },
+    plugins: [
+        new MiniCssExtractPlugin()
+    ]
 }
