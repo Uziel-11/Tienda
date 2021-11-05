@@ -1,10 +1,12 @@
 import React from 'react'
+import Header from "../recursos/Header";
 
 class CarritoCompras extends React.Component{
 
     render(){
         return(
             <>
+                <Header/>
                 <div>
                     <br/>
                     <div className={"container"} id={"box-login"}>

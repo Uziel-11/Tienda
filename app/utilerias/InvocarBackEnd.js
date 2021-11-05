@@ -6,7 +6,7 @@ class InvocarBackEnd{
     getEncabezado(){
         return({
             'Content-Type' : 'application/json',
-            authorization: window.localStorage.getItem('token')
+            //authorization: window.localStorage.getItem('token')
         })
     }
 
@@ -36,9 +36,9 @@ class InvocarBackEnd{
             .then(dato => {
                 console.log('dato: '+JSON.stringify(dato))
                 if (dato.status)
-                    okCallback
+                    okCallback(dato)
                 else
-                    failCallback
+                    failCallback(dato)
             })
             .catch(error => {
                 console.log('Error: '+error)

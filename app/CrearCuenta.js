@@ -1,6 +1,7 @@
 import React from 'react'
 import update from 'immutability-helper'
 import bd from './utilerias/InvocarBackEnd'
+import Header from "../recursos/Header";
 
 class CrearCuenta extends React.Component{
 
@@ -31,6 +32,7 @@ class CrearCuenta extends React.Component{
     render() {
         return(
             <>
+                <Header/>
                 <br/>
                 <div className={"col-md-4 container-fluid border border-secondary"}>
                     <div className={"text-center"}>
@@ -119,8 +121,9 @@ class CrearCuenta extends React.Component{
                 contrasena: this.state.contrasena
             }
             bd.postInvocacion(`/users/crearCuenta`, usuar, dato =>{
-                alert(dato.message)
+                //alert(dato.message)
                 this.usuariobien = false
+                this.props.history.push('/InicioSesion')
             }, error =>{
                 alert(error.message + error.error)
             })

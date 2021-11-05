@@ -20,7 +20,8 @@ module.exports = {
                         presets: ["@babel/preset-react"],
                         plugins: [
                             "react-hot-loader/babel",
-                            //"jsx-control-statements"
+                            "jsx-control-statements",
+                            //"transform-react-inline-elements"
                         ]
                     }
                 }
@@ -46,6 +47,8 @@ module.exports = {
         ]
     },
     plugins: [
-        new MiniCssExtractPlugin()
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].css'
+        })
     ]
 }

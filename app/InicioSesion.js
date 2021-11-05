@@ -1,7 +1,8 @@
 import React from 'react'
 import update from "immutability-helper";
 import bd from './utilerias/InvocarBackEnd';
-import './Styles/InicioSesion.css'
+import {Link} from "react-router-dom";
+import Header from "../recursos/Header";
 
 class InicioSesion extends React.Component{
 
@@ -25,12 +26,13 @@ class InicioSesion extends React.Component{
     render() {
         return(
             <>
+                <Header/>
                 <div>
                     <br/>
-                    <div className={"container"} id={"box-login"}>
+                    <div className={"container"} >
                         <div className={"row content"}>
                             <div className={"col-md-6"}>
-                                <img src="../recursos/images/logo.png" alt="" width="400" height="400"
+                                <img src="./recursos/images/logo.png" alt="" width="400" height="400"
                                      className="d-inline-block align-top"/>
                             </div>
                             <div className={"col-md-6 container-fluid border border-secondary"} id={"box-login"}>
@@ -70,7 +72,10 @@ class InicioSesion extends React.Component{
                                     <div className={"align-top"}>
                                         <p/>
                                         <button type='button' className={"btn btn-outline-primary"} id={"background-coloe"} onClick={this.iniciarSesion.bind(this)}> Iniciar Sesion </button>
+
                                         <button type='button' className={"btn btn-outline-primary"}> Olvidé mi contraseña </button>
+                                        <br/>
+                                        <Link to="CrearCuenta"> Crear Cuenta </Link>
                                     </div>
                                 </form>
                             </div>
@@ -97,12 +102,16 @@ class InicioSesion extends React.Component{
             usuario: this.state.usuario,
             contrasena: this.state.contrasena
         }
+        alert('iniciar sesion')
         bd.postInvocacion(`/users/iniciarSesion`, usuari, dato =>{
-            alert(JSON.stringify(dato))
-            //window.localStorage.setItem('token', dato.token)
+            //alert(JSON.stringify(dato))
+            this.props.history.push('/')
         }, error => {
             this.pass.innerHTML = error.message
+            alert(error)
         })
+
+
     }
 }
 
